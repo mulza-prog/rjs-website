@@ -1,119 +1,244 @@
 import './App.css'
-import logo from './logo.jpeg'
+
+import logo from './assets/logo.jpeg'
+import img1 from './assets/1.jpeg'
+import img2 from './assets/2.jpeg'
+import img3 from './assets/3.jpeg'
+import img4 from './assets/4.jpeg'
+
+import { useState, useEffect } from 'react'
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const closeMenu = () => setMenuOpen(false)
+
   return (
     <div className="app">
 
-      {/* HEADER */}
-      <header className="header">
-        <div className="logo-section">
-          <img src={logo} alt="Real Junior School Logo" className="logo" />
-          <div>
-            <h1>Real Junior School</h1>
-            <p className="motto">Devoted to Excellence</p>
+      {/* NAVBAR */}
+      <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+        <div className="brand">
+          <img src={logo} alt="School Logo" className="logo" />
+          <div className="brand-text">
+            <span className="brand-name">Real Junior School</span>
+            <span className="brand-motto">Devoted to Excellence</span>
           </div>
         </div>
-        <nav>
-          <a href="#about">About</a>
-          <a href="#academics">Academics</a>
-          <a href="#services">Services</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </header>
+
+        <div
+          className={`hamburger ${menuOpen ? 'open' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
+          <a href="#about" onClick={closeMenu}>About</a>
+          <a href="#levels" onClick={closeMenu}>Programs</a>
+          <a href="#director" onClick={closeMenu}>Director</a>
+          <a href="#gallery" onClick={closeMenu}>Gallery</a>
+          <a href="#contact" onClick={closeMenu} className="nav-cta">Contact</a>
+        </div>
+      </nav>
 
       {/* HERO */}
-      <section className="hero">
-        <div className="hero-overlay">
-          <h2>Welcome to Real Junior School</h2>
-          <p>Providing quality CBC education from Playgroup to Grade 9</p>
-          <button>Enroll Today</button>
+      <header className="hero">
+        <div className="hero-overlay"> 
         </div>
-      </section>
+        <div className="hero-scroll-hint">
+          <span>↓</span>
+        </div>
+      </header>
 
-      {/* ABOUT */}
+      {/* STATS STRIP */}
+      <div className="stats-strip">
+        <div className="stat"><span className="stat-num">4</span><span className="stat-label">School Levels</span></div>
+        <div className="stat"><span className="stat-num">PG–G9</span><span className="stat-label">Age Range</span></div>
+        <div className="stat"><span className="stat-num">100%</span><span className="stat-label">Devoted to Excellence</span></div>
+        <div className="stat"><span className="stat-num">🇰🇪</span><span className="stat-label">Mlolongo, Kenya</span></div>
+      </div>
+
+      {/* ABOUT SCHOOL */}
       <section id="about" className="section">
-        <h2>About Us</h2>
-        <p>Real Junior School is a leading educational institution located in Mlolongo, Kenya. Established in 2005.</p>
-        <div className="stats">
-          <div className="stat-card"><h3>2005</h3><p>Established</p></div>
-          <div className="stat-card"><h3>Playgroup – G9</h3><p>CBC Curriculum</p></div>
-          <div className="stat-card"><h3>3 Years</h3><p>Entry Age</p></div>
-          <div className="stat-card"><h3>8AM – 5PM</h3><p>School Hours</p></div>
+        <div className="section-inner">
+          <div className="section-label">Who We Are</div>
+          <h2 className="section-title">About Real Junior School</h2>
+          <p className="section-desc">
+            A modern learning institution committed to nurturing responsible, disciplined,
+            and confident learners in a safe and supportive environment.
+          </p>
+
+          <div className="about-grid">
+            <div className="about-box">
+              <div className="about-icon">🎯</div>
+              <h3>Motto</h3>
+              <p><strong>Devoted to Excellence</strong></p>
+            </div>
+
+            <div className="about-box featured">
+              <div className="about-icon">🌍</div>
+              <h3>Vision</h3>
+              <p>
+                To empower learners and educators to think creatively, reason critically,
+                and engage proactively guided by ethical and spiritual values.
+              </p>
+            </div>
+
+            <div className="about-box">
+              <div className="about-icon">🎓</div>
+              <h3>Mission</h3>
+              <p>
+                Create a happy, safe learning environment — modeling excellence and equity
+                for every child at every level through quality instructions and providing
+                efficient systems and structures in school to sustain a cilture committed
+                to success.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* MISSION & VISION */}
-      <section className="mission-section">
-        <div className="mission-card">
-          <h2>Our Mission</h2>
-          <p>To create a happy and safe learning environment and model excellence and equity in education for every child.</p>
-        </div>
-        <div className="mission-card">
-          <h2>Our Vision</h2>
-          <p>To see empowered learners think creatively, reason critically, guided by ethical and spiritual values.</p>
+      {/* SCHOOL LEVELS */}
+      <section id="levels" className="section section-alt">
+        <div className="section-inner">
+          <div className="section-label">Academic Structure</div>
+          <h2 className="section-title">School Programs</h2>
+
+          <div className="levels-grid">
+            <div className="level-card">
+              <div className="level-icon">🧒</div>
+              <div className="level-title">Pre School</div>
+              <div className="level-range">PG – PP2</div>
+            </div>
+            <div className="level-card">
+              <div className="level-icon">📘</div>
+              <div className="level-title">Lower Primary</div>
+              <div className="level-range">Grade 1 – 3</div>
+            </div>
+            <div className="level-card">
+              <div className="level-icon">📗</div>
+              <div className="level-title">Upper Primary</div>
+              <div className="level-range">Grade 4 – 6</div>
+            </div>
+            <div className="level-card">
+              <div className="level-icon">🎓</div>
+              <div className="level-title">Junior Secondary</div>
+              <div className="level-range">Grade 7 – 9</div>
+            </div>
+          </div>
+
+          <div className="co-curricular">
+            <h3>Co-Curricular Activities</h3>
+            <p>Sports · Music · Drama · Ballet dancing · Karate · Scouting · Talent Development</p>
+          </div>
         </div>
       </section>
 
-      {/* CORE VALUES */}
-      <section className="section">
-        <h2>Core Values</h2>
-        <div className="cards">
-          <div className="card"><h3>Discipline</h3><p>We nurture responsible and respectful learners.</p></div>
-          <div className="card"><h3>Devotion</h3><p>Commitment to excellence in everything we do.</p></div>
-          <div className="card"><h3>Determination</h3><p>Encouraging resilience, growth, and achievement.</p></div>
-        </div>
-      </section>
-
-      {/* ACADEMICS */}
-      <section id="academics" className="section bg-light">
-        <h2>Academic Structure</h2>
-        <div className="cards">
-          <div className="card"><h3>Playgroup</h3><p>Foundation learning for early childhood development.</p></div>
-          <div className="card"><h3>Pre-Primary</h3><p>PP1 & PP2 under the CBC curriculum.</p></div>
-          <div className="card"><h3>Primary School</h3><p>Grade 1 – Grade 6 strong academic foundation.</p></div>
-          <div className="card"><h3>Junior Secondary</h3><p>Grade 7 – Grade 9 preparing learners for future success.</p></div>
-        </div>
-      </section>
-
-      {/* SERVICES */}
-      <section id="services" className="section">
-        <h2>Services & Activities</h2>
-        <div className="cards">
-          <div className="card"><h3>School Meals</h3><p>Healthy and balanced meals provided daily.</p></div>
-          <div className="card"><h3>Transport Services</h3><p>Safe and reliable transport for learners.</p></div>
-          <div className="card"><h3>Sports & Clubs</h3><p>Sports, drama, music, karate, and clubs available.</p></div>
-          <div className="card"><h3>Qualified Teachers</h3><p>Dedicated and experienced teaching staff.</p></div>
+      {/* DIRECTOR MESSAGE */}
+      <section id="director" className="section director-section">
+        <div className="section-inner">
+          <div className="section-label">Leadership</div>
+          <h2 className="section-title">Director's Message</h2>
+          <div className="director-box">
+            <div className="quote-mark">"</div>
+            <p>
+              Welcome to Real Junior School. We are committed to providing quality education,
+              strong values, and a nurturing environment where every child can thrive academically,
+              socially, and morally. Together, we build futures.
+            </p>
+            <div className="director-sig">
+              <div className="sig-line"></div>
+              <h4>School Director</h4>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* GALLERY */}
-      <section id="gallery" className="section bg-light">
-        <h2>School Gallery</h2>
-        <div className="gallery">
-          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600" />
-          <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=600" />
-          <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?w=600" />
-          <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=600" />
-          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600" />
-          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600" />
+      <section id="gallery" className="section section-alt">
+        <div className="section-inner">
+          <div className="section-label">Our School Life</div>
+          <h2 className="section-title">Gallery</h2>
+          <div className="gallery">
+            <div className="gallery-item tall"><img src={img1} alt="School 1" /></div>
+            <div className="gallery-item"><img src={img2} alt="School 2" /></div>
+            <div className="gallery-item"><img src={img3} alt="School 3" /></div>
+            <div className="gallery-item wide"><img src={img4} alt="School 4" /></div>
+          </div>
         </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="section">
-        <h2>Contact Us</h2>
-        <div className="contact-box">
-          <p><strong>Location:</strong> Mlolongo, Kenya</p>
-          <p><strong>Email:</strong> realjuniorsch@gmail.com</p>
-          <p><strong>School Hours:</strong> 8:00 AM – 5:00 PM</p>
+      <section id="contact" className="section contact-section">
+        <div className="section-inner">
+          <div className="section-label">Reach Us</div>
+          <h2 className="section-title">Contact Us</h2>
+          <div className="contact-grid">
+            <div className="contact-card">
+              <div className="contact-icon">📍</div>
+              <h4>Location</h4>
+              <p>Mlolongo, Kenya</p>
+            </div>
+            <div className="contact-card">
+              <div className="contact-icon">🏫</div>
+              <h4>Levels Offered</h4>
+              <p>PG – Grade 9</p>
+            </div>
+            <div className="contact-card">
+              <div className="contact-icon">✉️</div>
+              <h4>Email</h4>
+              <a href="mailto:realjuniorsch@gmail.com">realjuniorsch@gmail.com</a>
+            </div>
+            <div className="contact-card">
+              <div className="contact-icon">📞</div>
+              <h4>Phone</h4>
+              <a href="tel:+254722788927">+254 722 788 927</a>
+              <a href="tel:+254702990238">+254 702 990 238</a>
+            </div>
+            <div className="contact-card">
+              <div className="contact-icon">🕐</div>
+              <h4>School Hours</h4>
+              <p>Monday – Friday</p>
+              <p>8:00 AM – 5:00 PM</p>
+            </div>
+            <div className="contact-card">
+              <div className="contact-icon">🎯</div>
+              <h4>Motto</h4>
+              <p>Devoted to Excellence</p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer>
-        <p>© 2026 Real Junior School — Devoted to Excellence</p>
+      <footer className="footer">
+        <div className="footer-inner">
+          <div className="footer-brand">
+            <img src={logo} alt="Logo" className="footer-logo" />
+            <div>
+              <div className="footer-name">Real Junior School</div>
+              <div className="footer-sub">Devoted to Excellence</div>
+            </div>
+          </div>
+          <div className="footer-links">
+            <a href="#about">About</a>
+            <a href="#levels">Programs</a>
+            <a href="#gallery">Gallery</a>
+            <a href="mailto:realjuniorsch@gmail.com">Email Us</a>
+          </div>
+          <p className="footer-copy">© 2026 Real Junior School. All rights reserved.</p>
+        </div>
       </footer>
 
     </div>
