@@ -101,7 +101,7 @@ function App() {
               <p>
                 Create a happy, safe learning environment — modeling excellence and equity
                 for every child at every level through quality instructions and providing
-                efficient systems and structures in school to sustain a cilture committed
+                efficient systems and structures in school to sustain a culture committed
                 to success.
               </p>
             </div>
